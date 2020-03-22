@@ -1,0 +1,18 @@
+{
+    "name": "darrencoutts118/json-schema-parser",
+    "authors": [
+        {
+            "name": "Darren Coutts",
+            "email": "d@coutts.io"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "JsonSchemaParser\\": "src/"
+        }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9"
+    }
+}
