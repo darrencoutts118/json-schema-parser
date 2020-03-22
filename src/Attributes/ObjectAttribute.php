@@ -18,7 +18,8 @@ class ObjectAttribute extends BaseAttribute
     protected function boot()
     {
         foreach ($this->extra->properties as $name => $schema) {
-            $this->properties[$name] = new StringAttribute($name, $schema);
+            $class = 'JsonSchemaParser\\Attributes\\' . ucfirst($schema->type) . 'Attribute';
+            $this->properties[$name] = new $class($name, $schema);
         }
     }
 

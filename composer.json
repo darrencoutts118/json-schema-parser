@@ -14,6 +14,11 @@
             "JsonSchemaParser\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "JsonSchemaParser\\Tests\\": "tests/"
+        }
+    },
     "require-dev": {
         "phpunit/phpunit": "^9"
     }
