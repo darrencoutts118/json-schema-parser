@@ -4,7 +4,9 @@ namespace JsonSchemaParser;
 
 class GenerationTest extends BaseTest
 {
-    function test_generate_blank_schema() {
+    /* @test */
+    public function testGenerateSchemaInstance()
+    {
         // setup
         $schema = new Schema();
 
