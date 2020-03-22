@@ -1,0 +1,96 @@
+{
+    "properties": {
+        "access_tokens_url": {
+            "type": "string"
+        },
+        "account": {
+            "properties": {
+                "avatar_url": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "events_url": {
+                    "type": "string"
+                },
+                "hooks_url": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "number"
+                },
+                "issues_url": {
+                    "type": "string"
+                },
+                "login": {
+                    "type": "string"
+                },
+                "members_url": {
+                    "type": "string"
+                },
+                "node_id": {
+                    "type": "string"
+                },
+                "public_members_url": {
+                    "type": "string"
+                },
+                "repos_url": {
+                    "type": "string"
+                },
+                "url": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "app_id": {
+            "type": "number"
+        },
+        "events": {
+            "items": {
+                "type": "string"
+            },
+            "type": "array"
+        },
+        "html_url": {
+            "type": "string"
+        },
+        "id": {
+            "type": "number"
+        },
+        "permissions": {
+            "properties": {
+                "contents": {
+                    "type": "string"
+                },
+                "issues": {
+                    "type": "string"
+                },
+                "metadata": {
+                    "type": "string"
+                },
+                "single_file": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "repositories_url": {
+            "type": "string"
+        },
+        "repository_selection": {
+            "type": "string"
+        },
+        "single_file_name": {
+            "type": "string"
+        },
+        "target_id": {
+            "type": "number"
+        },
+        "target_type": {
+            "type": "string"
+        }
+    },
+    "type": "object"
+}
