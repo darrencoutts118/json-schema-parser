@@ -6,7 +6,9 @@
             "email": "d@coutts.io"
         }
     ],
-    "require": {},
+    "require": {
+        "illuminate/support": "^7.2"
+    },
     "autoload": {
         "psr-4": {
             "JsonSchemaParser\\": "src/"

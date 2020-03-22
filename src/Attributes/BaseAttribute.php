@@ -2,6 +2,8 @@
 
 namespace JsonSchemaParser\Attributes;
 
+use Illuminate\Support\Str;
+
 abstract class BaseAttribute
 {
     protected $children = [];
@@ -24,5 +26,10 @@ abstract class BaseAttribute
     public function name()
     {
         return $this->name;
+    }
+
+    public function title()
+    {
+        return Str::title(str_replace('_', ' ', $this->name));
     }
 }

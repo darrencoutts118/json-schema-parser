@@ -2,13 +2,17 @@
 
 namespace JsonSchemaParser\Attributes;
 
+use Illuminate\Support\Collection;
+
 class ObjectAttribute extends BaseAttribute
 {
-    protected $properties = [];
+    protected $properties;
 
-    public function properties()
+    public function __construct($name, $extra = [])
     {
-        return $this->properties;
+        $this->properties = new Collection();
+
+        parent::__construct($name, $extra);
     }
 
     protected function boot()
@@ -16,5 +20,10 @@ class ObjectAttribute extends BaseAttribute
         foreach ($this->extra->properties as $name => $schema) {
             $this->properties[$name] = new StringAttribute($name, $schema);
         }
+    }
+
+    public function properties()
+    {
+        return $this->properties;
     }
 }
