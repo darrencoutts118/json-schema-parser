@@ -9,6 +9,7 @@ abstract class BaseAttribute
     protected $children = [];
     protected $name;
     protected $extra;
+    protected $value = null;
 
     public function __construct($name, $extra = [])
     {
@@ -31,5 +32,15 @@ abstract class BaseAttribute
     public function title()
     {
         return Str::title(str_replace('_', ' ', $this->name));
+    }
+
+    public function setValue($value)
+    {
+        $this->value = $value;
+    }
+
+    public function value()
+    {
+        return $this->value;
     }
 }

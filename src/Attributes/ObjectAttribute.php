@@ -3,10 +3,13 @@
 namespace JsonSchemaParser\Attributes;
 
 use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
+use JsonSchemaParser\Exceptions\PropertyNotFoundException;
 
 class ObjectAttribute extends BaseAttribute
 {
     protected $properties;
+    protected $value = [];
 
     public function __construct($name, $extra = [])
     {
@@ -26,5 +29,41 @@ class ObjectAttribute extends BaseAttribute
     public function properties()
     {
         return $this->properties;
+    }
+
+    public function property($property)
+    {
+        if (Str::contains($property, '.')) {
+            // this is looking for a sub property
+            if (!isset($this->properties[Str::before($property, '.')])) {
+                throw new PropertyNotFoundException('Property ' . $property . ' is not found in this schema');
+            }
+
+            return $this->properties[Str::before($property, '.')]->property(Str::after($property, '.'));
+        }
+
+        if (!isset($this->properties[$property])) {
+            throw new PropertyNotFoundException('Property ' . $property . ' is not found in this schema');
+        }
+
+        return $this->properties[$property];
+    }
+
+    public function setValue($values)
+    {
+        foreach ($values as $property => $value) {
+            $this->property($property)->setValue($value);
+        }
+    }
+
+    public function value()
+    {
+        $return = [];
+
+        foreach ($this->properties as $property) {
+            $return[$property->name()] = $property->value();
+        }
+
+        return $return;
     }
 }

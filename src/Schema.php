@@ -35,4 +35,9 @@ class Schema
     {
         return $this->schema;
     }
+
+    public function property($property)
+    {
+        return $this->schema->property($property);
+    }
 }
