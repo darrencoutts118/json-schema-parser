@@ -9,7 +9,7 @@ class ArrayAttribute extends BaseAttribute
     protected function boot()
     {
         $items = $this->extra->items;
-        $class = 'JsonSchemaParser\\Attributes\\' . ucfirst($items->type) . 'Attribute';
+        $class = 'JsonSchemaParser\\Attributes\\'.ucfirst($items->type).'Attribute';
 
         $this->items = new $class(null, $items);
     }

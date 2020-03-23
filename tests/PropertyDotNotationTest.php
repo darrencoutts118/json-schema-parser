@@ -3,7 +3,6 @@
 namespace JsonSchemaParser\Tests;
 
 use JsonSchemaParser\Attributes\ArrayAttribute;
-use JsonSchemaParser\Attributes\NumberAttribute;
 use JsonSchemaParser\Attributes\ObjectAttribute;
 use JsonSchemaParser\Attributes\StringAttribute;
 use JsonSchemaParser\Exceptions\PropertyNotFoundException;

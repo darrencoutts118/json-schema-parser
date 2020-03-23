@@ -22,7 +22,7 @@ class Schema
     {
         $this->object = json_decode($this->json);
 
-        $class = 'JsonSchemaParser\\Attributes\\' . ucfirst($this->object->type) . 'Attribute';
+        $class = 'JsonSchemaParser\\Attributes\\'.ucfirst($this->object->type).'Attribute';
         $this->schema = new $class(null, $this->object);
     }
 

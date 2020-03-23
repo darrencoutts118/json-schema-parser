@@ -2,8 +2,8 @@
 
 namespace JsonSchemaParser\Tests;
 
-use JsonSchemaParser\Schema;
 use JsonSchemaParser\Attributes\ObjectAttribute;
+use JsonSchemaParser\Schema;
 
 class GenerationTest extends BaseTest
 {
@@ -22,7 +22,7 @@ class GenerationTest extends BaseTest
     public function testGenerateSchemaFromJson()
     {
         // setup
-        $json = file_get_contents(__DIR__ . '/assets/schema.json');
+        $json = file_get_contents(__DIR__.'/assets/schema.json');
         $schema = new Schema($json);
 
         // assert
