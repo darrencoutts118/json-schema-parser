@@ -40,4 +40,18 @@ class Schema
     {
         return $this->schema->property($property);
     }
+
+    public function value($property)
+    {
+        return $this->schema->value($property);
+    }
+
+    public function fill($values)
+    {
+        if (is_string($values)) {
+            $values = json_decode($values);
+        }
+
+        return $this->schema->setValue($values);
+    }
 }

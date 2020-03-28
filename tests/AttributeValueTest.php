@@ -2,6 +2,10 @@
 
 namespace JsonSchemaParser\Tests;
 
+use JsonSchemaParser\Attributes\ObjectAttribute;
+use JsonSchemaParser\Attributes\StringAttribute;
+use stdClass;
+
 class AttributeValueTest extends BaseTest
 {
     /* @test */
@@ -82,6 +86,21 @@ class AttributeValueTest extends BaseTest
     }
 
     /* @test */
+    public function testObjectPropertiesCanHaveAValueSetFromAnObject()
+    {
+        // setup
+        $schema = $this->createSchema();
+
+        // act
+        $value = new stdClass;
+        $value->avatar_url = 'https://...';
+        $schema->property('account')->setValue($value);
+
+        // assert
+        $this->assertEquals('https://...', $schema->property('account.avatar_url')->value());
+    }
+
+    /* @test */
     public function testObjectPropertiesCanBeRetrivedAsAnArray()
     {
         // setup
@@ -91,8 +110,165 @@ class AttributeValueTest extends BaseTest
         $schema->property('account')->setValue(['avatar_url' => 'https://...']);
 
         // assert
-        $this->assertIsArray($schema->property('account')->value());
-        $this->assertArrayHasKey('avatar_url', $schema->property('account')->value());
-        $this->assertEquals('https://...', $schema->property('account')->value()['avatar_url']);
+        $this->assertIsArray($schema->property('account')->value(null, true));
+        $this->assertArrayHasKey('avatar_url', $schema->property('account')->value(null, true));
+        $this->assertEquals('https://...', $schema->property('account')->value(null, true)['avatar_url']);
+    }
+
+    /* @test */
+    public function testObjectPropertiesCanBeRetrivedAsAnObject()
+    {
+        // setup
+        $schema = $this->createSchema();
+
+        // act
+        $schema->property('account')->setValue(['avatar_url' => 'https://...']);
+
+        // assert
+        $this->assertIsObject($schema->property('account')->value());
+        $this->assertObjectHasAttribute('avatar_url', $schema->property('account')->value());
+        $this->assertEquals('https://...', $schema->property('account')->value()->avatar_url);
+    }
+
+    /* @test */
+    public function testArrayAttributesCanContainSimpleChildren()
+    {
+        // setup
+        $schema = $this->createSchema();
+
+        // act
+        $schema->property('events')->newItem()->setValue('push');
+
+        // assert
+        $this->assertCount(1, $schema->property('events')->array());
+        $this->assertEquals('push', $schema->property('events')->array()[0]->value());
+
+        // act
+        $schema->property('events')->newItem()->setValue('pull_request');
+
+        // assert
+        $this->assertCount(2, $schema->property('events')->array());
+        $this->assertEquals('push', $schema->property('events')->array()[0]->value());
+        $this->assertInstanceOf(StringAttribute::class, $schema->property('events')->array()[1]);
+        $this->assertEquals('pull_request', $schema->property('events')->array()[1]->value());
+    }
+
+    /* @test */
+    public function testArrayAttributesCanContainComplexChildren()
+    {
+        // setup
+        $schema = $this->createSchema();
+
+        // act
+        $schema->property('repositories')->newItem()->property('allow_merge_commit')->setValue(true);
+
+        // assert
+        $this->assertCount(1, $schema->property('repositories')->array());
+        $this->assertEquals(true, $schema->property('repositories')->array()[0]->property('allow_merge_commit')->value());
+
+        // act
+        $schema->property('repositories')->newItem()->property('allow_merge_commit')->setValue(false);
+
+        // assert
+        $this->assertCount(2, $schema->property('repositories')->array());
+        $this->assertInstanceOf(ObjectAttribute::class, $schema->property('repositories')->array()[1]);
+        $this->assertEquals(true, $schema->property('repositories')->array()[0]->property('allow_merge_commit')->value());
+        $this->assertEquals(false, $schema->property('repositories')->array()[1]->property('allow_merge_commit')->value());
+    }
+
+    /* @test */
+    public function testArrayAttributesCanSetSimpleAttributesByNewItem()
+    {
+        // setup
+        $schema = $this->createSchema();
+
+        // act
+        $schema->property('events')->newItem('push');
+
+        // assert
+        $this->assertCount(1, $schema->property('events')->array());
+        $this->assertEquals('push', $schema->property('events')->array()[0]->value());
+
+        // act
+        $schema->property('events')->newItem('pull_request');
+
+        // assert
+        $this->assertCount(2, $schema->property('events')->array());
+        $this->assertEquals('push', $schema->property('events')->array()[0]->value());
+        $this->assertEquals('pull_request', $schema->property('events')->array()[1]->value());
+    }
+
+    /* @test */
+    public function testArrayAttributesCanSetComplexAttributesByNewItem()
+    {
+        // setup
+        $schema = $this->createSchema();
+
+        // act
+        $schema->property('repositories')->newItem(['allow_merge_commit' => true]);
+
+        // assert
+        $this->assertCount(1, $schema->property('repositories')->array());
+        $this->assertEquals(true, $schema->property('repositories')->array()[0]->property('allow_merge_commit')->value());
+
+        // act
+        $schema->property('repositories')->newItem(['allow_merge_commit' => false]);
+
+        // assert
+        $this->assertCount(2, $schema->property('repositories')->array());
+        $this->assertEquals(true, $schema->property('repositories')->array()[0]->property('allow_merge_commit')->value());
+        $this->assertEquals(false, $schema->property('repositories')->array()[1]->property('allow_merge_commit')->value());
+    }
+
+    /* @test */
+    public function testArrayAttributesCanHaveSimpleChildrenSetByArray()
+    {
+        // setup
+        $schema = $this->createSchema();
+
+        // act
+        $schema->property('events')->setValue(['push', 'pull_request']);
+
+        // assert
+        $this->assertCount(2, $schema->property('events')->array());
+        $this->assertEquals('push', $schema->property('events')->array()[0]->value());
+        $this->assertEquals('pull_request', $schema->property('events')->array()[1]->value());
+    }
+
+    /* @test */
+    public function testArrayAttributesCanHaveComplexChildrenSetByArray()
+    {
+        // setup
+        $schema = $this->createSchema();
+
+        // act
+        $schema->property('repositories')->setValue([['allow_merge_commit' => true], ['allow_merge_commit' => false]]);
+
+        // assert
+        $this->assertCount(2, $schema->property('repositories')->array());
+        $this->assertEquals(true, $schema->property('repositories')->array()[0]->property('allow_merge_commit')->value());
+        $this->assertEquals(false, $schema->property('repositories')->array()[1]->property('allow_merge_commit')->value());
+    }
+
+    /* @test */
+    public function testArrayAttributesCanHaveNestedArrays()
+    {
+        // setup
+        $schema = $this->createSchema();
+
+        // act
+        $schema->property('repositories')->setValue([
+            ['topics' => ['Topic 1', 'Topic 2']],
+            ['topics' => ['Topic 3', 'Topic 4']]
+        ]);
+
+        // assert
+        $this->assertCount(2, $schema->property('repositories')->array());
+        $this->assertCount(2, $schema->property('repositories')->array()[0]->property('topics')->value());
+        $this->assertEquals('Topic 1', $schema->property('repositories')->array()[0]->property('topics')->value()[0]->value());
+        $this->assertEquals('Topic 2', $schema->property('repositories')->array()[0]->property('topics')->value()[1]->value());
+        $this->assertCount(2, $schema->property('repositories')->array()[1]->property('topics')->value());
+        $this->assertEquals('Topic 3', $schema->property('repositories')->array()[1]->property('topics')->value()[0]->value());
+        $this->assertEquals('Topic 4', $schema->property('repositories')->array()[1]->property('topics')->value()[1]->value());
     }
 }

@@ -141,5 +141,6 @@
     "repository_selection": "selected",
     "single_file_name": "config.yml",
     "target_id": 1,
+    "target_owner": true,
     "target_type": "Organization"
 }
