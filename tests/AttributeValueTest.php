@@ -92,7 +92,7 @@ class AttributeValueTest extends BaseTest
         $schema = $this->createSchema();
 
         // act
-        $value = new stdClass;
+        $value = new stdClass();
         $value->avatar_url = 'https://...';
         $schema->property('account')->setValue($value);
 
