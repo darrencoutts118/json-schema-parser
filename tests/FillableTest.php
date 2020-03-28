@@ -11,7 +11,7 @@ class FillableTest extends BaseTest
         $schema = $this->createSchema();
 
         // act
-        $values = json_decode(file_get_contents(__DIR__ . '/assets/example.json'));
+        $values = json_decode(file_get_contents(__DIR__.'/assets/example.json'));
         $schema->fill($values);
 
         // assert
@@ -42,7 +42,7 @@ class FillableTest extends BaseTest
         $schema = $this->createSchema();
 
         // act
-        $values = file_get_contents(__DIR__ . '/assets/example.json');
+        $values = file_get_contents(__DIR__.'/assets/example.json');
         $schema->fill($values);
 
         // assert

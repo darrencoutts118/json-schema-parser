@@ -21,7 +21,7 @@ class ObjectAttribute extends BaseAttribute
     protected function boot()
     {
         foreach ($this->extra->properties as $name => $schema) {
-            $class = 'JsonSchemaParser\\Attributes\\' . ucfirst($schema->type) . 'Attribute';
+            $class = 'JsonSchemaParser\\Attributes\\'.ucfirst($schema->type).'Attribute';
             $this->properties[$name] = new $class($name, $schema);
         }
     }
@@ -36,14 +36,14 @@ class ObjectAttribute extends BaseAttribute
         if (Str::contains($property, '.')) {
             // this is looking for a sub property
             if (!isset($this->properties[Str::before($property, '.')])) {
-                throw new PropertyNotFoundException('Property ' . $property . ' is not found in this schema');
+                throw new PropertyNotFoundException('Property '.$property.' is not found in this schema');
             }
 
             return $this->properties[Str::before($property, '.')]->property(Str::after($property, '.'));
         }
 
         if (!isset($this->properties[$property])) {
-            throw new PropertyNotFoundException('Property ' . $property . ' is not found in this schema');
+            throw new PropertyNotFoundException('Property '.$property.' is not found in this schema');
         }
 
         return $this->properties[$property];

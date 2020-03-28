@@ -1,10 +1,10 @@
 <?php
 
-include __DIR__ . '/vendor/autoload.php';
+include __DIR__.'/vendor/autoload.php';
 
 use JsonSchemaParser\Schema;
 
-$json = file_get_contents(__DIR__ . '/tests/assets/schema.json');
+$json = file_get_contents(__DIR__.'/tests/assets/schema.json');
 $schema = new Schema($json);
 
 // act

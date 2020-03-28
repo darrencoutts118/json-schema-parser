@@ -92,7 +92,7 @@ class AttributeValueTest extends BaseTest
         $schema = $this->createSchema();
 
         // act
-        $value = new stdClass;
+        $value = new stdClass();
         $value->avatar_url = 'https://...';
         $schema->property('account')->setValue($value);
 
@@ -259,7 +259,7 @@ class AttributeValueTest extends BaseTest
         // act
         $schema->property('repositories')->setValue([
             ['topics' => ['Topic 1', 'Topic 2']],
-            ['topics' => ['Topic 3', 'Topic 4']]
+            ['topics' => ['Topic 3', 'Topic 4']],
         ]);
 
         // assert
