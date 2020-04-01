@@ -265,10 +265,10 @@ class AttributeValueTest extends BaseTest
         // assert
         $this->assertCount(2, $schema->property('repositories')->array());
         $this->assertCount(2, $schema->property('repositories')->array()[0]->property('topics')->value());
-        $this->assertEquals('Topic 1', $schema->property('repositories')->array()[0]->property('topics')->value()[0]->value());
-        $this->assertEquals('Topic 2', $schema->property('repositories')->array()[0]->property('topics')->value()[1]->value());
+        $this->assertEquals('Topic 1', $schema->property('repositories')->array()[0]->property('topics')->array()[0]->value());
+        $this->assertEquals('Topic 2', $schema->property('repositories')->array()[0]->property('topics')->array()[1]->value());
         $this->assertCount(2, $schema->property('repositories')->array()[1]->property('topics')->value());
-        $this->assertEquals('Topic 3', $schema->property('repositories')->array()[1]->property('topics')->value()[0]->value());
-        $this->assertEquals('Topic 4', $schema->property('repositories')->array()[1]->property('topics')->value()[1]->value());
+        $this->assertEquals('Topic 3', $schema->property('repositories')->array()[1]->property('topics')->array()[0]->value());
+        $this->assertEquals('Topic 4', $schema->property('repositories')->array()[1]->property('topics')->array()[1]->value());
     }
 }
