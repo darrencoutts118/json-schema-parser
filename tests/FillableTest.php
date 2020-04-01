@@ -27,12 +27,13 @@ class FillableTest extends BaseTest
         $this->assertEquals($expected[1], $schema->property('events')->value()[1]->value());
 
         $expected = ['octocat', 'atom', 'electron', 'api'];
+        $actual = $schema->property('repositories')->value()[0]->property('topics')->value();
         $this->assertCount(1, $schema->property('repositories')->value());
         $this->assertCount(4, $schema->property('repositories')->value()[0]->property('topics')->value());
-        $this->assertEquals($expected[0], $schema->property('repositories')->value()[0]->property('topics')->value()[0]->value());
-        $this->assertEquals($expected[1], $schema->property('repositories')->value()[0]->property('topics')->value()[1]->value());
-        $this->assertEquals($expected[2], $schema->property('repositories')->value()[0]->property('topics')->value()[2]->value());
-        $this->assertEquals($expected[3], $schema->property('repositories')->value()[0]->property('topics')->value()[3]->value());
+        $this->assertEquals($expected[0], $actual[0]->value());
+        $this->assertEquals($expected[1], $actual[1]->value());
+        $this->assertEquals($expected[2], $actual[2]->value());
+        $this->assertEquals($expected[3], $actual[3]->value());
     }
 
     /* @test */
@@ -58,11 +59,12 @@ class FillableTest extends BaseTest
         $this->assertEquals($expected[1], $schema->property('events')->value()[1]->value());
 
         $expected = ['octocat', 'atom', 'electron', 'api'];
+        $actual = $schema->property('repositories')->value()[0]->property('topics')->value();
         $this->assertCount(1, $schema->property('repositories')->value());
         $this->assertCount(4, $schema->property('repositories')->value()[0]->property('topics')->value());
-        $this->assertEquals($expected[0], $schema->property('repositories')->value()[0]->property('topics')->value()[0]->value());
-        $this->assertEquals($expected[1], $schema->property('repositories')->value()[0]->property('topics')->value()[1]->value());
-        $this->assertEquals($expected[2], $schema->property('repositories')->value()[0]->property('topics')->value()[2]->value());
-        $this->assertEquals($expected[3], $schema->property('repositories')->value()[0]->property('topics')->value()[3]->value());
+        $this->assertEquals($expected[0], $actual[0]->value());
+        $this->assertEquals($expected[1], $actual[1]->value());
+        $this->assertEquals($expected[2], $actual[2]->value());
+        $this->assertEquals($expected[3], $actual[3]->value());
     }
 }
