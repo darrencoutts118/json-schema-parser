@@ -56,23 +56,25 @@ class ObjectAttribute extends BaseAttribute
         }
     }
 
-    public function value($property = null, $array = false)
+    public function array()
     {
-        if (!is_null($property)) {
-            return $this->property($property)->value();
-        }
-
         $return = [];
 
-        foreach ($this->properties as $_property) {
-            $return[$_property->name()] = $_property->value($property);
-        }
-
-        if (!$array) {
-            $return = (object) $return;
+        foreach ($this->properties as $property) {
+            $return[$property->name()] = $property;
         }
 
         return $return;
+    }
+
+    public function object()
+    {
+        return (object) $this->array();
+    }
+
+    public function value($property = null)
+    {
+        return $this->property($property)->value();
     }
 
     public function __clone()

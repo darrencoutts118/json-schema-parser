@@ -110,9 +110,9 @@ class AttributeValueTest extends BaseTest
         $schema->property('account')->setValue(['avatar_url' => 'https://...']);
 
         // assert
-        $this->assertIsArray($schema->property('account')->value(null, true));
-        $this->assertArrayHasKey('avatar_url', $schema->property('account')->value(null, true));
-        $this->assertEquals('https://...', $schema->property('account')->value(null, true)['avatar_url']);
+        $this->assertIsArray($schema->property('account')->array());
+        $this->assertArrayHasKey('avatar_url', $schema->property('account')->array());
+        $this->assertEquals('https://...', $schema->property('account')->array()['avatar_url']->value());
     }
 
     /* @test */
@@ -125,9 +125,9 @@ class AttributeValueTest extends BaseTest
         $schema->property('account')->setValue(['avatar_url' => 'https://...']);
 
         // assert
-        $this->assertIsObject($schema->property('account')->value());
-        $this->assertObjectHasAttribute('avatar_url', $schema->property('account')->value());
-        $this->assertEquals('https://...', $schema->property('account')->value()->avatar_url);
+        $this->assertIsObject($schema->property('account')->object());
+        $this->assertObjectHasAttribute('avatar_url', $schema->property('account')->object());
+        $this->assertEquals('https://...', $schema->property('account')->object()->avatar_url->value());
     }
 
     /* @test */
