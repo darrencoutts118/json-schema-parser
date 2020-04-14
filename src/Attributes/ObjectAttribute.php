@@ -5,6 +5,10 @@ namespace JsonSchemaParser\Attributes;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use JsonSchemaParser\Exceptions\PropertyNotFoundException;
+use JsonSchemaParser\FluentManipulator;
+use stdClass;
+
+use function PHPUnit\Framework\isNull;
 
 class ObjectAttribute extends BaseAttribute
 {
@@ -74,6 +78,25 @@ class ObjectAttribute extends BaseAttribute
 
     public function value($property = null)
     {
+        if (is_null($property)) {
+            // we want the whole object
+            $return = new stdClass();
+
+            foreach ($this->properties as $name => $prop) {
+                $return->{$name} = $prop->value();
+            }
+
+            return $return;
+        }
+
+        if (Str::contains($property, '.')) {
+            if (!isset($this->properties[Str::before($property, '.')])) {
+                throw new PropertyNotFoundException('Property ' . $property . ' is not found in this schema');
+            }
+
+            return $this->property(Str::before($property, '.'))->value(Str::after($property, '.'));
+        }
+
         return $this->property($property)->value();
     }
 
@@ -84,5 +107,10 @@ class ObjectAttribute extends BaseAttribute
         foreach ($this->properties->keys() as $property) {
             $this->properties[$property] = clone $this->properties[$property];
         }
+    }
+
+    public function __get($property)
+    {
+        return (new FluentManipulator($this, $property))->autoValue();
     }
 }

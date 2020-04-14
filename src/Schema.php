@@ -54,4 +54,9 @@ class Schema
 
         return $this->schema->setValue($values);
     }
+
+    public function __get($property)
+    {
+        return $this->schema->{$property};
+    }
 }

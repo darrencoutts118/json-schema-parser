@@ -2,6 +2,6 @@
 
 namespace JsonSchemaParser\Attributes;
 
-class BooleanAttribute extends BaseAttribute
+class BooleanAttribute extends BaseAttribute implements ScalarAttribute
 {
 }

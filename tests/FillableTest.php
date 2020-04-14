@@ -27,9 +27,9 @@ class FillableTest extends BaseTest
         $this->assertEquals($expected[1], $schema->property('events')->array()[1]->value());
 
         $expected = ['octocat', 'atom', 'electron', 'api'];
-        $actual = $schema->property('repositories')->array()[0]->property('topics')->value();
-        $this->assertCount(1, $schema->property('repositories')->value());
-        $this->assertCount(4, $schema->property('repositories')->array()[0]->property('topics')->value());
+        $actual = $schema->property('repositories')->array()[0]->property('topics')->array();
+        $this->assertCount(1, $schema->property('repositories')->array());
+        $this->assertCount(4, $schema->property('repositories')->array()[0]->property('topics')->array());
         $this->assertEquals($expected[0], $actual[0]->value());
         $this->assertEquals($expected[1], $actual[1]->value());
         $this->assertEquals($expected[2], $actual[2]->value());
@@ -59,9 +59,9 @@ class FillableTest extends BaseTest
         $this->assertEquals($expected[1], $schema->property('events')->array()[1]->value());
 
         $expected = ['octocat', 'atom', 'electron', 'api'];
-        $actual = $schema->property('repositories')->array()[0]->property('topics')->value();
-        $this->assertCount(1, $schema->property('repositories')->value());
-        $this->assertCount(4, $schema->property('repositories')->array()[0]->property('topics')->value());
+        $actual = $schema->property('repositories')->array()[0]->property('topics')->array();
+        $this->assertCount(1, $schema->property('repositories')->array());
+        $this->assertCount(4, $schema->property('repositories')->array()[0]->property('topics')->array());
         $this->assertEquals($expected[0], $actual[0]->value());
         $this->assertEquals($expected[1], $actual[1]->value());
         $this->assertEquals($expected[2], $actual[2]->value());

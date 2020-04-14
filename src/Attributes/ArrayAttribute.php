@@ -2,6 +2,8 @@
 
 namespace JsonSchemaParser\Attributes;
 
+use Illuminate\Support\Str;
+
 class ArrayAttribute extends BaseAttribute
 {
     protected $items;
@@ -22,6 +24,17 @@ class ArrayAttribute extends BaseAttribute
 
     public function property($property)
     {
+        if (Str::contains($property, '.')) {
+            $start = Str::before($property, '.');
+            if (is_numeric($start) || $start == '*') {
+                $property = Str::after($property, '.');
+            }
+        } else {
+            if (is_numeric($property) || $property == '*') {
+                return $this;
+            }
+        }
+
         return $this->items->property($property);
     }
 
@@ -55,20 +68,41 @@ class ArrayAttribute extends BaseAttribute
         return $return;
     }
 
+    public function each($property)
+    {
+        $return = [];
+
+        $property = Str::after($property, '*.');
+
+        foreach (array_keys($this->value) as $key) {
+            $return[] = $this->value($key . '.' . $property);
+        }
+
+        return $return;
+    }
+
     public function value($property = null)
     {
-        if (is_null($property)) {
-            return $this->value;
+        if (!is_null($property)) {
+            $index = $property;
+            $subProperty = null;
+
+            if (Str::startsWith($property, '*')) {
+                return $this->each($property);
+            }
+
+            if (Str::contains($property, '.')) {
+                $index = Str::before($property, '.');
+                $subProperty = Str::after($property, '.');
+            }
+
+            return $this->value[$index]->value($subProperty);
         }
 
         $return = [];
 
         foreach ($this->value as $value) {
-            if ($value instanceof BaseAttribute) {
-                $return[] = $value->value();
-            } else {
-                $return[] = $value;
-            }
+            $return[] = $value->value();
         }
 
         return $return;

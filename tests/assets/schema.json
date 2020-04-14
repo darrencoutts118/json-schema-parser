@@ -59,6 +59,20 @@
         "id": {
             "type": "number"
         },
+        "integrations": {
+            "items": {
+                "properties": {
+                    "id": {
+                        "type": "number"
+                    },
+                    "name": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "type": "array"
+        },
         "permissions": {
             "properties": {
                 "contents": {

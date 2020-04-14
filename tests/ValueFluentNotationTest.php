@@ -2,7 +2,7 @@
 
 namespace JsonSchemaParser\Tests;
 
-class ValueDotNotationTest extends BaseTest
+class ValueFluentNotationTest extends BaseTest
 {
     /* @test */
     public function testATextAttributeCanBeAccessedAtRootLevel()
@@ -12,8 +12,8 @@ class ValueDotNotationTest extends BaseTest
 
         // assert
         $expected = 'https://api.github.com/installations/1/access_tokens';
-        $this->assertEquals($expected, $schema->asSchema()->value('access_tokens_url'));
-        $this->assertEquals($expected, $schema->value('access_tokens_url'));
+        $this->assertEquals($expected, $schema->asSchema()->access_tokens_url);
+        $this->assertEquals($expected, $schema->access_tokens_url);
     }
 
     /* @test */
@@ -24,8 +24,8 @@ class ValueDotNotationTest extends BaseTest
 
         // assert
         $expected = true;
-        $this->assertEquals($expected, $schema->asSchema()->value('target_owner'));
-        $this->assertEquals($expected, $schema->value('target_owner'));
+        $this->assertEquals($expected, $schema->asSchema()->target_owner);
+        $this->assertEquals($expected, $schema->target_owner);
     }
 
     /* @test */
@@ -36,7 +36,7 @@ class ValueDotNotationTest extends BaseTest
 
         // assert
         $expected = 1;
-        $this->assertEquals($expected, $schema->asSchema()->value('app_id'));
-        $this->assertEquals($expected, $schema->value('app_id'));
+        $this->assertEquals($expected, $schema->asSchema()->app_id);
+        $this->assertEquals($expected, $schema->app_id);
     }
 }

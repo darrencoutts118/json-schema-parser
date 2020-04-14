@@ -26,7 +26,7 @@ class RootObjectTest extends BaseTest
         $schema = $this->createSchema();
 
         // assert
-        $this->assertCount(14, $schema->asSchema()->properties());
+        $this->assertCount(15, $schema->asSchema()->properties());
     }
 
     /* @test */

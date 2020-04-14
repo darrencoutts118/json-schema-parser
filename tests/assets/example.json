@@ -21,6 +21,19 @@
     ],
     "html_url": "https://github.com/organizations/github/settings/installations/1",
     "id": 1,
+    "integrations": [{
+            "id": 1,
+            "name": "Application 1"
+        },
+        {
+            "id": 2,
+            "name": "Hello World"
+        },
+        {
+            "id": 3,
+            "name": "My App"
+        }
+    ],
     "permissions": {
         "contents": "read",
         "issues": "write",
