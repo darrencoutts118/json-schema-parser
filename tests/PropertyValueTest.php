@@ -6,7 +6,7 @@ use JsonSchemaParser\Attributes\ObjectAttribute;
 use JsonSchemaParser\Attributes\StringAttribute;
 use stdClass;
 
-class AttributeValueTest extends BaseTest
+class PropertyValueTest extends BaseTest
 {
     /* @test */
     public function testAttributesHaveDefaultValues()

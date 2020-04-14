@@ -2,7 +2,7 @@
 
 namespace JsonSchemaParser\Tests;
 
-class AttributeTest extends BaseTest
+class PropertyTest extends BaseTest
 {
     /* @test */
     public function testAttributesContainHumanReadableTitles()
