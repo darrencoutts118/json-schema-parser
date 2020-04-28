@@ -2,7 +2,7 @@
 
 namespace JsonSchemaParser\Tests;
 
-class ValueDotNotationObjetTest extends BaseTest
+class ValueDotNotationObjectTest extends BaseTest
 {
     /* @test */
     public function testAnObjectAttributeCanBeAccessedAtRootLevel()
