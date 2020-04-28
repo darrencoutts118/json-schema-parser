@@ -10,11 +10,13 @@ abstract class BaseAttribute
     protected $name;
     protected $extra;
     protected $value = null;
+    protected $path = null;
 
-    public function __construct($name, $extra = [])
+    public function __construct($name, $path, $extra = [])
     {
         $this->name = $name;
         $this->extra = $extra;
+        $this->path = $path;
 
         $this->boot();
     }
@@ -42,5 +44,10 @@ abstract class BaseAttribute
     public function value()
     {
         return $this->value;
+    }
+
+    public function fqn()
+    {
+        return implode('.', array_filter([$this->path, $this->name]));
     }
 }

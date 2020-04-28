@@ -14,7 +14,7 @@ class ArrayAttribute extends BaseAttribute
         $items = $this->extra->items;
         $class = 'JsonSchemaParser\\Attributes\\' . ucfirst($items->type) . 'Attribute';
 
-        $this->items = new $class(null, $items);
+        $this->items = new $class(null, $this->fqn(), $items);
     }
 
     public function items()

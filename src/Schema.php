@@ -23,7 +23,7 @@ class Schema
         $this->object = json_decode($this->json);
 
         $class = 'JsonSchemaParser\\Attributes\\' . ucfirst($this->object->type) . 'Attribute';
-        $this->schema = new $class(null, $this->object);
+        $this->schema = new $class(null, null, $this->object);
     }
 
     public function asJson()
