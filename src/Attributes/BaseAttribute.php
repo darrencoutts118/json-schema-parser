@@ -50,4 +50,9 @@ abstract class BaseAttribute
     {
         return implode('.', array_filter([$this->path, $this->name]));
     }
+
+    public function validate()
+    {
+        return true;
+    }
 }
