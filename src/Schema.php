@@ -73,7 +73,7 @@ class Schema
         return $this->schema->validate();
     }
 
-    public function __get($property) : BaseAttribute
+    public function __get($property): BaseAttribute
     {
         return $this->schema->{$property};
     }
