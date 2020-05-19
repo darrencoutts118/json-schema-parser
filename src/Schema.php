@@ -2,6 +2,9 @@
 
 namespace JsonSchemaParser;
 
+use JsonSchemaParser\Attributes\BaseAttribute;
+use JsonSchemaParser\Attributes\StringAttribute;
+
 class Schema
 {
     protected $json;
@@ -60,7 +63,9 @@ class Schema
     public function fill($values)
     {
         if (is_string($values)) {
-            $values = json_decode($values);
+            if (!$this->schema instanceof StringAttribute) {
+                $values = json_decode($values);
+            }
         }
 
         $this->schema->setValue($values);
@@ -68,7 +73,7 @@ class Schema
         return $this->schema->validate();
     }
 
-    public function __get($property)
+    public function __get($property) : BaseAttribute
     {
         return $this->schema->{$property};
     }
