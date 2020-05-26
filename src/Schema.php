@@ -62,7 +62,7 @@ class Schema
 
     public function fill($values)
     {
-        if (is_string($values)) {
+        if (is_string($values) && substr($values, 0, 1) === '{') {
             if (!$this->schema instanceof StringAttribute) {
                 $values = json_decode($values);
             }
@@ -73,7 +73,7 @@ class Schema
         return $this->schema->validate();
     }
 
-    public function __get($property) : BaseAttribute
+    public function __get($property): BaseAttribute
     {
         return $this->schema->{$property};
     }
